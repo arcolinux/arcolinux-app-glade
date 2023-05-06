@@ -32,9 +32,9 @@
 
 workdir=$(pwd)
 
-if [ -d $workdir/usr/share/arcolinux-app/work ]; then
+if [ -d $workdir/usr/share/arcolinux-app-glade/work ]; then
 	echo "Removing work directory"
-	sudo rm -rv $workdir/usr/share/arcolinux-app/work
+	sudo rm -rv $workdir/usr/share/arcolinux-app-glade/work
 fi
 
 # checking if I have the latest files from github
@@ -43,26 +43,26 @@ git pull
 
 
 echo "Keyring from ArcoLinux"
-rm -v $workdir/usr/share/arcolinux-app/packages/arcolinux-keyring/*
-cp -v /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo/x86_64/arcolinux-keyring*pkg.tar.zst $workdir/usr/share/arcolinux-app/packages/arcolinux-keyring
+rm -v $workdir/usr/share/arcolinux-app-glade/packages/arcolinux-keyring/*
+cp -v /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo/x86_64/arcolinux-keyring*pkg.tar.zst $workdir/usr/share/arcolinux-app-glade/packages/arcolinux-keyring
 
 echo "Mirror from ArcoLinux"
-rm -v $workdir/usr/share/arcolinux-app/packages/arcolinux-mirrorlist/*
-cp -v /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo/x86_64/arcolinux-mirror*pkg.tar.zst $workdir/usr/share/arcolinux-app/packages/arcolinux-mirrorlist
+rm -v $workdir/usr/share/arcolinux-app-glade/packages/arcolinux-mirrorlist/*
+cp -v /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo/x86_64/arcolinux-mirror*pkg.tar.zst $workdir/usr/share/arcolinux-app-glade/packages/arcolinux-mirrorlist
 
 #pacman.conf
 echo "get the pacman.conf from ArchLinux"
-wget https://gitlab.archlinux.org/archlinux/archiso/-/raw/master/configs/releng/pacman.conf -O $workdir/usr/share/arcolinux-app/data/arch/pacman.conf
+wget https://gitlab.archlinux.org/archlinux/archiso/-/raw/master/configs/releng/pacman.conf -O $workdir/usr/share/arcolinux-app-glade/data/arch/pacman.conf
 
 echo "get the pacman.conf from ArcoLinux"
-wget https://raw.githubusercontent.com/arcolinux/arcolinuxl-iso/master/archiso/airootfs/etc/pacman.conf -O $workdir/usr/share/arcolinux-app/data/arco/pacman.conf
+wget https://raw.githubusercontent.com/arcolinux/arcolinuxl-iso/master/archiso/airootfs/etc/pacman.conf -O $workdir/usr/share/arcolinux-app-glade/data/arco/pacman.conf
 
 
 echo "get the pacman.conf from EOS"
-wget https://raw.githubusercontent.com/endeavouros-team/EndeavourOS-ISO/main/airootfs/etc/pacman.conf -O $workdir/usr/share/arcolinux-app/data/eos/pacman.conf
+wget https://raw.githubusercontent.com/endeavouros-team/EndeavourOS-ISO/main/airootfs/etc/pacman.conf -O $workdir/usr/share/arcolinux-app-glade/data/eos/pacman.conf
 
 echo "get the pacman.conf from EOS"
-wget https://gitlab.com/garuda-linux/tools/garuda-tools/-/raw/master/data/pacman-multilib.conf -O $workdir/usr/share/arcolinux-app/data/garuda/pacman.conf
+wget https://gitlab.com/garuda-linux/tools/garuda-tools/-/raw/master/data/pacman-multilib.conf -O $workdir/usr/share/arcolinux-app-glade/data/garuda/pacman.conf
 
 
 # Below command will backup everything inside the project folder

@@ -26,12 +26,12 @@ home = "/home/" + str(sudo_username)
 message = "This is the ArcoLinux App"
 arcolinux_mirrorlist = "/etc/pacman.d/arcolinux-mirrorlist"
 mirrorlist = "/etc/pacman.d/mirrorlist"
-log_dir = "/var/log/arcolinux-app/"
+log_dir = "/var/log/arcolinux-app-glade/"
 pacman_conf = "/etc/pacman.conf"
-pacman_arch = "/usr/share/arcolinux-app/data/arch/pacman.conf"
-pacman_arco = "/usr/share/arcolinux-app/data/arco/pacman.conf"
-pacman_eos = "/usr/share/arcolinux-app/data/eos/pacman.conf"
-pacman_garuda = "/usr/share/arcolinux-app/data/garuda/pacman.conf"
+pacman_arch = "/usr/share/arcolinux-app-glade/data/arch/pacman.conf"
+pacman_arco = "/usr/share/arcolinux-app-glade/data/arco/pacman.conf"
+pacman_eos = "/usr/share/arcolinux-app-glade/data/eos/pacman.conf"
+pacman_garuda = "/usr/share/arcolinux-app-glade/data/garuda/pacman.conf"
 
 atestrepo = "#[arcolinux_repo_testing]\n\
 #SigLevel = Optional TrustedOnly\n\

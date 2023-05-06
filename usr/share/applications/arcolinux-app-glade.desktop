@@ -1,9 +1,9 @@
 [Desktop Entry]
-Name=Arcolinux Application
-GenericName=Arcolinux Application
-X-GNOME-FullName=Arcolinux Application
+Name=Arcolinux Application Glade
+GenericName=Arcolinux Application Glade
+X-GNOME-FullName=Arcolinux Application Glade
 Comment=Application
-Exec=/usr/bin/arcolinux-app
+Exec=/usr/bin/arcolinux-app-glade
 Icon=arcolinux-hello
 Terminal=false
 Type=Application
