@@ -2,7 +2,6 @@
 # =                  Author: Erik Dubois                          =
 # =================================================================
 
-import datetime
 import os
 import shutil
 import subprocess
@@ -480,27 +479,29 @@ def install_packages_path(self, path):
         if not line.find("#") != -1:
             install_package(self, line)
 
+    # =====================================================
+    #               NOTIFICATIONS
+    # =====================================================
 
-# =====================================================
-#               NOTIFICATIONS
-# =====================================================
+    # def show_in_app_notification(self, message, err):
+    #     if self.timeout_id is not None:
+    #         GLib.source_remove(self.timeout_id)
+    #         self.timeout_id = None
+
+    #     if err == True:
+    #         self.notification_label.set_markup(
+    #             '<span background="yellow" foreground="black">' + message + "</span>"
+    #         )
+    #     else:
+    #         self.notification_label.set_markup(
+    #             '<span foreground="white">' + message + "</span>"
+    #         )
+    #     self.notification_revealer.set_reveal_child(True)
+    # self.timeout_id = GLib.timeout_add(3000, timeOut, self)
 
 
 def show_in_app_notification(self, message, err):
-    if self.timeout_id is not None:
-        GLib.source_remove(self.timeout_id)
-        self.timeout_id = None
-
-    if err == True:
-        self.notification_label.set_markup(
-            '<span background="yellow" foreground="black">' + message + "</span>"
-        )
-    else:
-        self.notification_label.set_markup(
-            '<span foreground="white">' + message + "</span>"
-        )
-    self.notification_revealer.set_reveal_child(True)
-    self.timeout_id = GLib.timeout_add(3000, timeOut, self)
+    print()
 
 
 def timeOut(self):
