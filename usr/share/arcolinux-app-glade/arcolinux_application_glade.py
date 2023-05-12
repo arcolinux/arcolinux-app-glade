@@ -75,25 +75,25 @@ class Main:
             try:
                 fn.mkdir("/root/.config", 0o766)
             except Exception as error:
-                logging.info(error)
+                logging.error(error)
 
         if not fn.path.isdir("/root/.config/gtk-3.0"):
             try:
                 fn.mkdir("/root/.config/gtk-3.0", 0o766)
             except Exception as error:
-                logging.info(error)
+                logging.error(error)
 
         if not fn.path.isdir("/root/.config/gtk-4.0"):
             try:
                 fn.mkdir("/root/.config/gtk-4.0", 0o766)
             except Exception as error:
-                logging.info(error)
+                logging.error(error)
 
         if not fn.path.isdir("/root/.config/xsettingsd"):
             try:
                 fn.mkdir("/root/.config/xsettingsd", 0o766)
             except Exception as error:
-                logging.info(error)
+                logging.error(error)
 
         # make backup of /etc/pacman.conf
         if fn.path.isfile(fn.pacman_conf):
@@ -102,7 +102,7 @@ class Main:
                     fn.shutil.copy(fn.pacman_conf, fn.pacman_conf + ".bak")
                     logging.info("Making a backup of /etc/pacman.conf")
                 except Exception as error:
-                    logging.info(error)
+                    logging.error(error)
 
         # ensuring we have a backup or the arcolinux mirrorlist
         if fn.path.isfile(fn.mirrorlist):
@@ -112,7 +112,7 @@ class Main:
                     logging.info("Making a backup of /etc/pacman.d/mirrorlist")
 
                 except Exception as error:
-                    logging.info(error)
+                    logging.error(error)
 
     def versioning(self):
         logging.info("App Started")
@@ -143,6 +143,13 @@ class Main:
         logging.info("Referencing the Gtk window 'hwindow' ID")
         window = self.builder.get_object("hWindow")
         window.connect("delete-event", Gtk.main_quit)
+
+        self.statusbar = self.builder.get_object("statusbar")
+
+        message = Gtk.Label(label="We will show all the messages here")
+
+        context_id = self.statusbar.get_context_id("example")
+        self.statusbar.push(context_id, message.get_text())
 
         logging.info("Display main window")
         window.show()
@@ -222,7 +229,7 @@ class Main:
         try:
             fn.run_command(command)
         except Exception as error:
-            logging.info(error)
+            logging.error(error)
 
         # launch the scripts
         # /tmp/arcolinuxd/installation-scripts/40-build-the-iso-local-again.sh
@@ -267,7 +274,7 @@ class Main:
                 stderr=fn.subprocess.STDOUT,
             )
         except Exception as error:
-            logging.info(error)
+            logging.error(error)
 
         # change the foldername
         if (
@@ -294,7 +301,7 @@ class Main:
                 False,
             )
         except Exception as error:
-            logging.info(error)
+            logging.error(error)
 
         # changing permission
         fn.permissions(destination)
@@ -316,7 +323,10 @@ class Main:
 
         # starting the build script
         command = "mkarchiso -v -o " + fn.home + " /usr/share/archiso/configs/releng/"
-        fn.run_command(command)
+        try:
+            fn.run_command(command)
+        except Exception as error:
+            logging.error(error)
 
         # changing permission
         x = datetime.now()
@@ -363,7 +373,7 @@ class Main:
                 False,
             )
         except Exception as error:
-            logging.info(error)
+            logging.error(error)
 
     def on_fix_arch_clicked(self, widget):
         logging.info("Let's fix the keys of Arch Linux")
@@ -374,7 +384,7 @@ class Main:
         GLib.idle_add(
             fn.show_in_app_notification,
             self,
-            "Let's fix the keys of Arch Linux",
+            "We fixed the keys of Arch Linux",
             False,
         )
 
@@ -405,7 +415,7 @@ class Main:
         try:
             fn.shutil.copytree(path_dir, destination, dirs_exist_ok=True)
         except Exception as error:
-            logging.info(error)
+            logging.error(error)
 
         logging.info("We saved the scripts to ~/DATA/arcolinux-nemesis")
 
@@ -424,12 +434,13 @@ class Main:
         fn.install_package(self, package)
         fn.run_script(self, command)
         logging.info("We changed the content of your /etc/pacman.d/mirrorlist")
-        logging.info("Server = http://mirror.rackspace.com/archlinux/\$repo/os/\$arch")
-        logging.info("Server = https://mirror.rackspace.com/archlinux/\$repo/os/\$arch")
-        logging.info("Server = https://mirrors.kernel.org/archlinux/\$repo/os/\$arch")
         logging.info("Server = https://mirror.osbeck.com/archlinux/\$repo/os/\$arch")
         logging.info("Server = http://mirror.osbeck.com/archlinux/\$repo/os/\$arch")
+        logging.info("Server = https://mirrors.kernel.org/archlinux/\$repo/os/\$arch")
         logging.info("Server = https://geo.mirror.pkgbuild.com/\$repo/os/\$arch")
+        logging.info("Server = http://mirror.rackspace.com/archlinux/\$repo/os/\$arch")
+        logging.info("Server = https://mirror.rackspace.com/archlinux/\$repo/os/\$arch")
+
         logging.info("Done")
         GLib.idle_add(
             fn.show_in_app_notification,
@@ -509,6 +520,20 @@ class Main:
             )
         else:
             logging.info("First select a file")
+
+    def on_quit_button_clicked(self, widget):
+        Gtk.main_quit()
+        print(
+            "---------------------------------------------------------------------------"
+        )
+        print("Thanks for using the ArcoLinux Application")
+        print("We hope you enjoyed the Youtube tutorials")
+        print(
+            "https://www.youtube.com/playlist?list=PLlloYVGq5pS63vf2ksZntZmWwiJK_gtFt"
+        )
+        print(
+            "---------------------------------------------------------------------------"
+        )
 
 
 if __name__ == "__main__":

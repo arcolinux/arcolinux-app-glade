@@ -502,6 +502,12 @@ def install_packages_path(self, path):
 
 def show_in_app_notification(self, message, err):
     print()
+    if self.timeout_id is not None:
+        GLib.source_remove(self.timeout_id)
+        self.timeout_id = None
+    self.statusbar.push(0, message)
+
+    self.timeout_id = GLib.timeout_add(3000, timeOut, self)
 
 
 def timeOut(self):
@@ -509,6 +515,5 @@ def timeOut(self):
 
 
 def close_in_app_notification(self):
-    self.notification_revealer.set_reveal_child(False)
-    GLib.source_remove(self.timeout_id)
+    self.statusbar.pop(0)
     self.timeout_id = None
