@@ -167,7 +167,7 @@ def install_package(self, package):
     else:
         try:
             print("[INFO] : Applying this command - " + command)
-            subprocess.call(
+            subprocess.run(
                 command.split(" "),
                 shell=False,
                 stdout=subprocess.PIPE,
@@ -187,7 +187,7 @@ def install_arcolinux_key_mirror(self):
     try:
         command1 = "pacman -U " + pathway + str(file).strip("[]'") + " --noconfirm"
         print("[INFO] : " + command1)
-        subprocess.call(
+        subprocess.run(
             command1.split(" "),
             shell=False,
             stdout=subprocess.PIPE,
@@ -202,7 +202,7 @@ def install_arcolinux_key_mirror(self):
     try:
         command2 = "pacman -U " + pathway + str(file).strip("[]'") + " --noconfirm"
         print("[INFO] : " + command2)
-        subprocess.call(
+        subprocess.run(
             command2.split(" "),
             shell=False,
             stdout=subprocess.PIPE,
@@ -218,7 +218,7 @@ def remove_arcolinux_key_mirror(self):
     try:
         command1 = "pacman -Rdd arcolinux-keyring --noconfirm"
         print("[INFO] : " + command1)
-        subprocess.call(
+        subprocess.run(
             command1.split(" "),
             shell=False,
             stdout=subprocess.PIPE,
@@ -231,7 +231,7 @@ def remove_arcolinux_key_mirror(self):
     try:
         command2 = "pacman -Rdd arcolinux-mirrorlist-git --noconfirm"
         print("[INFO] : " + command2)
-        subprocess.call(
+        subprocess.run(
             command2.split(" "),
             shell=False,
             stdout=subprocess.PIPE,
@@ -255,7 +255,7 @@ def run_script(self, command):
     print("[INFO] : Applying this command")
     print("[INFO] : " + command)
     try:
-        subprocess.call(
+        subprocess.run(
             command, shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT
         )
     except Exception as error:
@@ -267,7 +267,7 @@ def run_command(command):
     print("[INFO] : Applying this command")
     print("[INFO] : " + command)
     try:
-        subprocess.call(
+        subprocess.run(
             command.split(" "),
             shell=False,
             stdout=subprocess.PIPE,
@@ -282,7 +282,7 @@ def run_script_alacritty_hold(self, command):
     print("[INFO] : Applying this command")
     print("[INFO] : " + command)
     try:
-        subprocess.call(
+        subprocess.run(
             "alacritty --hold -e" + command,
             shell=True,
             stdout=subprocess.PIPE,
@@ -297,7 +297,7 @@ def run_script_alacritty(self, command):
     print("[INFO] : Applying this command")
     print("[INFO] : " + command)
     try:
-        subprocess.call(
+        subprocess.run(
             "alacritty -e" + command,
             shell=True,
             stdout=subprocess.PIPE,
@@ -337,7 +337,7 @@ def permissions(dst):
             if "gid" in x:
                 g = x.split("(")[1]
                 group = g.replace(")", "").strip()
-        subprocess.call(["chown", "-R", sudo_username + ":" + group, dst], shell=False)
+        subprocess.run(["chown", "-R", sudo_username + ":" + group, dst], shell=False)
     except Exception as error:
         print(error)
 

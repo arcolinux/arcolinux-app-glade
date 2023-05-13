@@ -4,6 +4,7 @@
 # =================================================================
 
 import datetime
+import os
 import logging
 from datetime import datetime
 from time import sleep
@@ -21,8 +22,9 @@ from gi.repository import Gdk, GdkPixbuf, GLib, Gtk  # noqa
 
 # constant values
 BASE_DIR = fn.path.dirname(fn.path.realpath(__file__))
-GUI_UI_FILE = BASE_DIR + "/gGui.ui"
+GUI_UI_FILE = os.path.join(BASE_DIR + "/gGui.ui")
 LOGGING_FORMAT = "%Y-%m-%d-%H-%M-%S"
+LOGGING_LEVEL = logging.DEBUG
 LOG_FILE = "/var/log/arcolinux-app-glade/arcolinux-app-{}.log".format(
     datetime.now().strftime(LOGGING_FORMAT)
 )
@@ -34,6 +36,9 @@ if not fn.path.exists(fn.log_dir):
 # https://docs.python.org/3/tutorial/classes.html
 # https://realpython.com/python-main-function/
 class Main:
+    choice = "arcolinuxl"
+    enabled_hold = False
+
     def __init__(self):
         # Setup intialization for logging and Gui
         self.splash()
@@ -60,7 +65,7 @@ class Main:
         # basic configuration
         # https://docs.python.org/3/howto/logging.html (debug,info,warning,error,critical)
         logging.basicConfig(
-            level=logging.DEBUG,
+            level=LOGGING_LEVEL,
             format="%(asctime)s:%(levelname)s : %(message)s",
             datefmt=LOGGING_FORMAT,
             handlers=self.handlers,
