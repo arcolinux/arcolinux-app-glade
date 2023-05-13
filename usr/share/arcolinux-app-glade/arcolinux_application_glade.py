@@ -153,6 +153,9 @@ class Main:
         context_id = self.statusbar.get_context_id("example")
         self.statusbar.push(context_id, message.get_text())
 
+        combobox = self.builder.get_object("iso_choices")
+        combobox.set_wrap_width(1)
+
         logging.info("Display main window")
         window.show()
 
