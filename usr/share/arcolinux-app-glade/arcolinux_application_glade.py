@@ -1,9 +1,22 @@
 #!/usr/bin/env python3
-# =================================================================
-# =                  Author: Erik Dubois                          =
-# =================================================================
 
-import datetime
+# ArcoLinux App - https://www.arcolinuxiso.com/arcolinux-app/
+# Copyright (C) 2023 EriK Dubois
+#
+# ArcoLinux App is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# ArcoLinux App is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Gufw; if not, see http://www.gnu.org/licenses for more
+# information.
+
 import os
 import logging
 from datetime import datetime
@@ -14,6 +27,7 @@ import functions as fn
 # Importing gi
 import gi
 import splash
+import about
 
 # https://docs.gtk.org/gtk3/
 gi.require_version("Gtk", "3.0")
@@ -576,6 +590,10 @@ class Main:
             )
         else:
             logging.info("First select a file")
+
+    def on_about_clicked(self, widget):
+        # About dialog
+        aboutwin = about.About()
 
     def on_quit_button_clicked(self, widget):
         # Ending the application
