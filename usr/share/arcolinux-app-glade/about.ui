@@ -8,7 +8,7 @@
     <property name="program-name">ArcoLinux App</property>
     <property name="comments" translatable="yes">Educational Project</property>
     <property name="authors">Erik Dubois</property>
-    <property name="logo">../../../../arcolinux-app-glade/usr/share/arcolinux-app-glade/images/medallion.png</property>
+    <property name="logo">/usr/share/arcolinux-app-glade/images/medallion.png</property>
     <signal name="activate-link" handler="on_website_link_activate" swapped="no"/>
     <child internal-child="vbox">
       <object class="GtkBox">
