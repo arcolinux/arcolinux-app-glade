@@ -267,7 +267,7 @@ def pacman_safeguard():
 
 
 # Running a script from the Application App
-def run_script(self, script):
+def run_script(self, command):
     logging.info("Running the following script: %s", command)
     try:
         subprocess.run(
