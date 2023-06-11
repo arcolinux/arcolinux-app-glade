@@ -74,6 +74,22 @@ Include = /etc/pacman.d/arcolinux-mirrorlist"
 #               BEGIN GLOBAL FUNCTIONS
 # =====================================================
 
+# check if file exists
+
+
+def file_check(file):
+    if path.isfile(file):
+        return True
+
+    return False
+
+
+# Check if path exists
+def path_check(path):
+    if os.path.isdir(path):
+        return True
+    return False
+
 
 # getting the content of a file
 def get_lines(files):
@@ -192,6 +208,80 @@ def install_package(self, package):
             logging.info("The package %sis now installed", package)
         except Exception as error:
             logging.error(error)
+
+
+# install ArcoLinux Spices Application
+def install_arcolinux_spices_application(self):
+    base_dir = path.dirname(path.realpath(__file__))
+    pathway = base_dir + "/packages/asa/"
+    file = listdir(pathway)
+
+    try:
+        command1 = "pacman -U " + pathway + str(file).strip("[]'") + " --noconfirm"
+        logging.info("Applying this command: %s", command1)
+        subprocess.run(
+            command1.split(" "),
+            shell=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
+        logging.info("ArcoLinux Spices Application(ASA) is now installed")
+    except Exception as error:
+        logging.error(error)
+
+    if file_check("/usr/share/arcolinux-spices/scripts/get-the-keys-and-repos.sh"):
+        try:
+            command1 = (
+                "pkexec /usr/share/arcolinux-spices/scripts/get-the-keys-and-repos.sh"
+            )
+            logging.info("Applying this command: %s", command1)
+            subprocess.run(
+                command1.split(" "),
+                shell=False,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+            )
+            logging.info("ArcoLinux keys and mirrorlist have been installed")
+        except Exception as error:
+            logging.error(error)
+    else:
+        print("Path to ArcoLinux Spices script does not exist")
+
+    if file_check("/usr/bin/arcolinux-spices"):
+        try:
+            command1 = "pacman -Sy"
+            logging.info("Applying this command: %s", command1)
+            subprocess.run(
+                command1.split(" "),
+                shell=False,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+            )
+            logging.info("ArcoLinux repos have been downloaded")
+        except Exception as error:
+            logging.error(error)
+    else:
+        print("Path to ArcoLinux Spices does not exist")
+
+
+# install ArchLinux Tweak Tool
+def install_archlinux_tweak_tool(self):
+    base_dir = path.dirname(path.realpath(__file__))
+    pathway = base_dir + "/packages/att/"
+    file = listdir(pathway)
+
+    try:
+        command1 = "pacman -U " + pathway + str(file).strip("[]'") + " --noconfirm"
+        logging.info("Applying this command: %s", command1)
+        subprocess.run(
+            command1.split(" "),
+            shell=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
+        logging.info("ArchLinux Tweak Tool (ATT) is now installed")
+    except Exception as error:
+        logging.error(error)
 
 
 # install ArcoLinux mirrorlist and key package
@@ -317,13 +407,6 @@ def run_script_alacritty(self, command):
         )
     except Exception as error:
         self.logging.error(error)
-
-
-# Check if path exists
-def path_check(path):
-    if os.path.isdir(path):
-        return True
-    return False
 
 
 # Remove directory

@@ -41,6 +41,15 @@ fi
 echo "Checking for newer files online first"
 git pull
 
+echo "ArchLinux Tweak Tool"
+rm -v $workdir/usr/share/arcolinux-app-glade/packages/att/*
+cp -v /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo/x86_64/archlinux-tweak-tool-git*pkg.tar.zst $workdir/usr/share/arcolinux-app-glade/packages/att
+
+
+echo "Arcolinud Spices Application"
+rm -v $workdir/usr/share/arcolinux-app-glade/packages/asa/*
+cp -v /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo/x86_64/arcolinux-spices-git*pkg.tar.zst $workdir/usr/share/arcolinux-app-glade/packages/asa
+
 
 echo "Keyring from ArcoLinux"
 rm -v $workdir/usr/share/arcolinux-app-glade/packages/arcolinux-keyring/*
