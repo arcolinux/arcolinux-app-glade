@@ -380,6 +380,87 @@ class Main:
             False,
         )
 
+    def on_create_ariser_clicked(self, widget):
+        # Creation of the ArcoLinux iso
+        logging.info("Ariser iso selected")
+
+        # installing archiso if needed
+        package = "archiso"
+        fn.install_package(self, package)
+
+        # making sure we start with a clean slate
+        logging.info("Let's remove any old previous building folders")
+        fn.remove_dir(self, "/root/Ariser-Out")
+        fn.remove_dir(self, "/root/Ariser-build")
+
+        # git clone the iso scripts
+        command = (
+            "git clone https://github.com/ariser-installer/ariser.git" + " /tmp/ariser"
+        )
+
+        logging.info("git cloning the build folder")
+        try:
+            fn.run_command(command)
+        except Exception as error:
+            logging.error(error)
+
+        # launch the scripts
+        # /tmp/arcolinuxd/installation-scripts/40-build-the-iso-local-again.sh
+        logging.info("Start building the iso in Alacritty")
+        logging.info(
+            "#################################################################"
+        )
+        logging.info("Sometimes you have to try and build it a second time")
+        logging.info("for it to work because of servers and network connections")
+        logging.info(
+            "##################################################################"
+        )
+        logging.info("Changed to /tmp/ariser")
+        fn.os.chdir("/tmp/ariser")
+
+        # Preparing to launch the build
+        command = "/tmp/ariser/build-archlinux-with-alis.sh"
+
+        logging.info("Launching the building script")
+
+        # Checking whether switch is on
+        critty = "alacritty -e"
+
+        # Launching the build
+        try:
+            fn.subprocess.call(
+                critty + command,
+                shell=True,
+                stdout=fn.subprocess.PIPE,
+                stderr=fn.subprocess.STDOUT,
+            )
+        except Exception as error:
+            logging.error(error)
+
+        # change the output - foldername
+        dir = "Ariser-Out"
+
+        # Moving the iso to home directory of the user
+        path_dir = "/root/" + dir
+        destination = fn.home + "/" + dir
+        logging.info("Move folder to home directory")
+        try:
+            fn.shutil.copytree(path_dir, destination, dirs_exist_ok=True)
+
+            # Sending an in-app message
+            GLib.idle_add(
+                fn.show_in_app_notification,
+                self,
+                "The creation of the Ariser iso is finished",
+                False,
+            )
+        except Exception as error:
+            logging.error(error)
+
+        # changing permission
+        fn.permissions(destination)
+        logging.info("Check your home directory for the iso")
+
     def on_clean_pacman_cache_clicked(self, widget):
         # Cleaning the /var/cache/pacman/pkg/
         logging.info("Let's clean the pacman cache")
