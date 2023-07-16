@@ -50,19 +50,19 @@ pacman_eos = "/usr/share/arcolinux-app-glade/data/eos/pacman.conf"
 pacman_garuda = "/usr/share/arcolinux-app-glade/data/garuda/pacman.conf"
 
 atestrepo = "#[arcolinux_repo_testing]\n\
-#SigLevel = Optional TrustedOnly\n\
+#SigLevel = PackageRequired DatabaseNever\n\
 #Include = /etc/pacman.d/arcolinux-mirrorlist"
 
 arepo = "[arcolinux_repo]\n\
-SigLevel = Optional TrustedOnly\n\
+SigLevel = PackageRequired DatabaseNever\n\
 Include = /etc/pacman.d/arcolinux-mirrorlist"
 
 a3prepo = "[arcolinux_repo_3party]\n\
-SigLevel = Optional TrustedOnly\n\
+SigLevel = PackageRequired DatabaseNever\n\
 Include = /etc/pacman.d/arcolinux-mirrorlist"
 
 axlrepo = "[arcolinux_repo_xlarge]\n\
-SigLevel = Optional TrustedOnly\n\
+SigLevel = PackageRequired DatabaseNever\n\
 Include = /etc/pacman.d/arcolinux-mirrorlist"
 
 # =====================================================
