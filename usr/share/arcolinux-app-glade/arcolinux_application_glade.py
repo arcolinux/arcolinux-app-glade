@@ -58,6 +58,7 @@ class Main:
         self.splash()
         self.setup_logging()
         self.back_ups()
+        self.cleanup()
         self.versioning()
         self.setup_gui()
 
@@ -129,6 +130,75 @@ class Main:
 
                 except Exception as error:
                     logging.error(error)
+
+    def cleanup(self):
+        # making sure /root is clean
+        # ArcoLinux
+        if fn.path.isdir("/root/arcolinux-build/"):
+            try:
+                fn.remove_dir(self, "/root/arcolinux-build/")
+                logging.info("Removing old builds")
+                logging.info("This may take a while - be patient")
+            except Exception as error:
+                logging.error(error)
+
+        if fn.path.isdir("/root/ArcoLinux-Out/"):
+            try:
+                fn.remove_dir(self, "/root/ArcoLinux-Out/")
+                logging.info("Removing old builds")
+                logging.info("This may take a while - be patient")
+            except Exception as error:
+                logging.error(error)
+
+        # ArcoLinuxD
+        if fn.path.isdir("/root/arcolinuxd-build/"):
+            try:
+                fn.remove_dir(self, "/root/arcolinuxd-build/")
+                logging.info("Removing old builds")
+                logging.info("This may take a while - be patient")
+            except Exception as error:
+                logging.error(error)
+
+        if fn.path.isdir("/root/ArcoLinuxD-Out/"):
+            try:
+                fn.remove_dir(self, "/root/ArcoLinuxD-Out/")
+                logging.info("Removing old builds")
+                logging.info("This may take a while - be patient")
+            except Exception as error:
+                logging.error(error)
+
+        # ArcoLinuxB
+        if fn.path.isdir("/root/arcolinuxb-build/"):
+            try:
+                fn.remove_dir(self, "/root/arcolinuxb-build/")
+                logging.info("Removing old builds")
+                logging.info("This may take a while - be patient")
+            except Exception as error:
+                logging.error(error)
+
+        if fn.path.isdir("/root/ArcoLinuxB-Out/"):
+            try:
+                fn.remove_dir(self, "/root/ArcoLinuxB-Out/")
+                logging.info("Removing old builds")
+                logging.info("This may take a while - be patient")
+            except Exception as error:
+                logging.error(error)
+
+        if fn.path.isdir("/root/Ariser-build/"):
+            try:
+                fn.remove_dir(self, "/root/Ariser-build/")
+                logging.info("Removing old builds")
+                logging.info("This may take a while - be patient")
+            except Exception as error:
+                logging.error(error)
+
+        if fn.path.isdir("/root/Ariser-Out/"):
+            try:
+                fn.remove_dir(self, "/root/Ariser-Out/")
+                logging.info("Removing old builds")
+                logging.info("This may take a while - be patient")
+            except Exception as error:
+                logging.error(error)
 
     def versioning(self):
         logging.info("App Started")
