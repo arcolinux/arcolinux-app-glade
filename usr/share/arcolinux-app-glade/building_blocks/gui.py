@@ -74,6 +74,7 @@ def GUI(self, Gtk, GdkPixbuf, fn):
         "arcolinuxs-lts",
         "arcolinuxs-zen",
         "arcolinuxs-xanmod",
+        "arcolinuxs-hardened",
         "arcolinuxb-awesome",
         "arcolinuxb-berry",
         "arcolinuxb-bspwm",

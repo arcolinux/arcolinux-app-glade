@@ -373,6 +373,7 @@ class Main:
             or self.choice == "arcolinuxs-lts"
             or self.choice == "arcolinuxs-zen"
             or self.choice == "arcolinuxs-xanmod"
+            or self.choice == "arcolinuxs-hardened"
         ):
             dir = "ArcoLinux-Out"
         elif self.choice == "arcolinuxd":

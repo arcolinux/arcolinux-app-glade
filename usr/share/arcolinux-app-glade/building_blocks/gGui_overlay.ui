@@ -58,6 +58,7 @@
                           <item translatable="yes">arcolinuxs-lts</item>
                           <item translatable="yes">arcolinuxs-zen</item>
                           <item translatable="yes">arcolinuxs-xanmod</item>
+                          <item translatable="yes">arcolinuxs-hardened</item>
                           <item translatable="yes">arcolinuxb-awesome</item>
                           <item translatable="yes">arcolinuxb-berry</item>
                           <item translatable="yes">arcolinuxb-bspwm</item>
