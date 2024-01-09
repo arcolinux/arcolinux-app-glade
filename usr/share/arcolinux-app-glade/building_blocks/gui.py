@@ -103,6 +103,7 @@ def GUI(self, Gtk, GdkPixbuf, fn):
         "arcolinuxb-spectrwm",
         "arcolinuxb-sway",
         "arcolinuxb-ukui",
+        "arcolinuxb-wayfire",
         "arcolinuxb-wmderland",
         "arcolinuxb-worm",
         "arcolinuxb-xfce",
