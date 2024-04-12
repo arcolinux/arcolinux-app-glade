@@ -142,9 +142,9 @@ class Main:
             except Exception as error:
                 logging.error(error)
 
-        if fn.path.isdir("/root/arconet-out/"):
+        if fn.path.isdir("/root/arconet-Out/"):
             try:
-                fn.remove_dir(self, "/root/arconet-out/")
+                fn.remove_dir(self, "/root/arconet-Out/")
                 logging.info("Removing old builds")
                 logging.info("This may take a while - be patient")
             except Exception as error:
@@ -159,9 +159,9 @@ class Main:
             except Exception as error:
                 logging.error(error)
 
-        if fn.path.isdir("/root/arcopro-out/"):
+        if fn.path.isdir("/root/arcopro-Out/"):
             try:
-                fn.remove_dir(self, "/root/arcopro-out/")
+                fn.remove_dir(self, "/root/arcopro-Out/")
                 logging.info("Removing old builds")
                 logging.info("This may take a while - be patient")
             except Exception as error:
@@ -176,9 +176,9 @@ class Main:
             except Exception as error:
                 logging.error(error)
 
-        if fn.path.isdir("/root/arcoplasma-out/"):
+        if fn.path.isdir("/root/arcoplasma-Out/"):
             try:
-                fn.remove_dir(self, "/root/arcoplasma-out/")
+                fn.remove_dir(self, "/root/arcoplasma-Out/")
                 logging.info("Removing old builds")
                 logging.info("This may take a while - be patient")
             except Exception as error:
@@ -286,9 +286,9 @@ class Main:
 
         # making sure we start with a clean slate
         logging.info("Let's remove any old previous building folders")
-        fn.remove_dir(self, "/root/arconet-out")
-        fn.remove_dir(self, "/root/arcopro-out")
-        fn.remove_dir(self, "/root/arcoplasma-out")
+        fn.remove_dir(self, "/root/arconet-Out")
+        fn.remove_dir(self, "/root/arcopro-Out")
+        fn.remove_dir(self, "/root/arcoplasma-Out")
 
         # git clone the iso scripts
         if "arconet" in self.choice:
@@ -366,9 +366,9 @@ class Main:
 
         # change the output - foldername
         if self.choice == "arconet":
-            dir = "arconet-out"
+            dir = "arconet-Out"
         elif self.choice == "arcopro":
-            dir = "arcopro-out"
+            dir = "arcopro-Out"
         else:
             dir = "arcoplasma-Out"
 
