@@ -58,83 +58,28 @@
                           <packing>
                             <property name="expand">False</property>
                             <property name="fill">True</property>
-                            <property name="position">0</property>
+                            <property name="position">1</property>
                           </packing>
                         </child>
                         <child>
                           <object class="GtkComboBoxText" id="iso_choices">
-                            <property name="width-request">240</property>
+                            <property name="width-request">60</property>
                             <property name="height-request">30</property>
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
                             <property name="active">0</property>
                             <property name="popup-fixed-width">False</property>
                             <items>
-                              <item translatable="yes">arcolinuxl</item>
-                              <item translatable="yes">arcolinuxd</item>
-                              <item translatable="yes">arcolinuxs</item>
-                              <item translatable="yes">arcolinuxs-lts</item>
-                              <item translatable="yes">arcolinuxs-zen</item>
-                              <item translatable="yes">arcolinuxs-xanmod</item>
-                              <item translatable="yes">arcolinuxs-hardened</item>
-                              <item translatable="yes">arcolinuxb-awesome</item>
-                              <item translatable="yes">arcolinuxb-berry</item>
-                              <item translatable="yes">arcolinuxb-bspwm</item>
-                              <item translatable="yes">arcolinuxb-budgie</item>
-                              <item translatable="yes">arcolinuxb-chadwm</item>
-                              <item translatable="yes">arcolinuxb-cinnamon</item>
-                              <item translatable="yes">arcolinuxb-cutefish</item>
-                              <item translatable="yes">arcolinuxb-cwm</item>
-                              <item translatable="yes">arcolinuxb-deepin</item>
-                              <item translatable="yes">arcolinuxb-dusk</item>
-                              <item translatable="yes">arcolinuxb-dwm</item>
-                              <item translatable="yes">arcolinuxb-fvwm3</item>
-                              <item translatable="yes">arcolinuxb-gnome</item>
-                              <item translatable="yes">arcolinuxb-herbstluftw</item>
-                              <item translatable="yes">arcolinuxb-hyprland</item>
-                              <item translatable="yes">arcolinuxb-i3</item>
-                              <item translatable="yes">arcolinuxb-icewm</item>
-                              <item translatable="yes">arcolinuxb-jwm</item>
-                              <item translatable="yes">arcolinuxb-leftwm</item>
-                              <item translatable="yes">arcolinuxb-lxqt</item>
-                              <item translatable="yes">arcolinuxb-mate</item>
-                              <item translatable="yes">arcolinuxb-openbox</item>
-                              <item translatable="yes">arcolinuxb-pantheon</item>
-                              <item translatable="yes">arcolinuxb-plasma</item>
-                              <item translatable="yes">arcolinuxb-qtile</item>
-                              <item translatable="yes">arcolinuxb-spectrwm</item>
-                              <item translatable="yes">arcolinuxb-sway</item>
-                              <item translatable="yes">arcolinuxb-ukui</item>
-                              <item translatable="yes">arcolinuxb-wayfire</item>
-                              <item translatable="yes">arcolinuxb-wmderland</item>
-                              <item translatable="yes">arcolinuxb-worm</item>
-                              <item translatable="yes">arcolinuxb-xfce</item>
-                              <item translatable="yes">arcolinuxb-xmonad</item>
-                              <item translatable="yes">arcolinuxb-xtended</item>
+                              <item translatable="yes">arconet</item>
+                              <item translatable="yes">arcopro</item>
+                              <item translatable="yes">arcoplasma</item>
                             </items>
                             <signal name="changed" handler="on_iso_choices_changed" swapped="no"/>
                           </object>
                           <packing>
                             <property name="expand">False</property>
                             <property name="fill">True</property>
-                            <property name="position">1</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkButton" id="on_create_arco_clicked">
-                            <property name="label" translatable="yes">Create</property>
-                            <property name="width-request">100</property>
-                            <property name="height-request">30</property>
-                            <property name="visible">True</property>
-                            <property name="can-focus">True</property>
-                            <property name="receives-default">True</property>
-                            <signal name="clicked" handler="on_create_arco_clicked" swapped="no"/>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">False</property>
-                            <property name="pack-type">end</property>
-                            <property name="position">3</property>
+                            <property name="position">2</property>
                           </packing>
                         </child>
                         <child>
@@ -151,6 +96,24 @@
                           <packing>
                             <property name="expand">False</property>
                             <property name="fill">True</property>
+                            <property name="position">3</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkButton" id="on_create_arco_clicked">
+                            <property name="label" translatable="yes">Create</property>
+                            <property name="width-request">100</property>
+                            <property name="height-request">30</property>
+                            <property name="visible">True</property>
+                            <property name="can-focus">True</property>
+                            <property name="receives-default">True</property>
+                            <property name="margin-start">120</property>
+                            <signal name="clicked" handler="on_create_arco_clicked" swapped="no"/>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">False</property>
+                            <property name="pack-type">end</property>
                             <property name="position">4</property>
                           </packing>
                         </child>

@@ -50,7 +50,7 @@ if not fn.path.exists(fn.log_dir):
 # https://docs.python.org/3/tutorial/classes.html
 # https://realpython.com/python-main-function/
 class Main:
-    choice = "arcolinuxl"
+    choice = "arconet"
     enabled_hold = False
 
     def __init__(self):
@@ -133,52 +133,52 @@ class Main:
 
     def cleanup(self):
         # making sure /root is clean
-        # ArcoLinux
-        if fn.path.isdir("/root/arcolinux-build/"):
+        # arconet
+        if fn.path.isdir("/root/arconet-build/"):
             try:
-                fn.remove_dir(self, "/root/arcolinux-build/")
+                fn.remove_dir(self, "/root/arconet-build/")
                 logging.info("Removing old builds")
                 logging.info("This may take a while - be patient")
             except Exception as error:
                 logging.error(error)
 
-        if fn.path.isdir("/root/ArcoLinux-Out/"):
+        if fn.path.isdir("/root/arconet-out/"):
             try:
-                fn.remove_dir(self, "/root/ArcoLinux-Out/")
+                fn.remove_dir(self, "/root/arconet-out/")
                 logging.info("Removing old builds")
                 logging.info("This may take a while - be patient")
             except Exception as error:
                 logging.error(error)
 
-        # ArcoLinuxD
-        if fn.path.isdir("/root/arcolinuxd-build/"):
+        # arcopro
+        if fn.path.isdir("/root/arcopro-build/"):
             try:
-                fn.remove_dir(self, "/root/arcolinuxd-build/")
+                fn.remove_dir(self, "/root/arcopro-build/")
                 logging.info("Removing old builds")
                 logging.info("This may take a while - be patient")
             except Exception as error:
                 logging.error(error)
 
-        if fn.path.isdir("/root/ArcoLinuxD-Out/"):
+        if fn.path.isdir("/root/arcopro-out/"):
             try:
-                fn.remove_dir(self, "/root/ArcoLinuxD-Out/")
+                fn.remove_dir(self, "/root/arcopro-out/")
                 logging.info("Removing old builds")
                 logging.info("This may take a while - be patient")
             except Exception as error:
                 logging.error(error)
 
-        # ArcoLinuxB
-        if fn.path.isdir("/root/arcolinuxb-build/"):
+        # arcoplasma
+        if fn.path.isdir("/root/arcoplasma-build/"):
             try:
-                fn.remove_dir(self, "/root/arcolinuxb-build/")
+                fn.remove_dir(self, "/root/arcoplasma-build/")
                 logging.info("Removing old builds")
                 logging.info("This may take a while - be patient")
             except Exception as error:
                 logging.error(error)
 
-        if fn.path.isdir("/root/ArcoLinuxB-Out/"):
+        if fn.path.isdir("/root/arcoplasma-out/"):
             try:
-                fn.remove_dir(self, "/root/ArcoLinuxB-Out/")
+                fn.remove_dir(self, "/root/arcoplasma-out/")
                 logging.info("Removing old builds")
                 logging.info("This may take a while - be patient")
             except Exception as error:
@@ -286,32 +286,30 @@ class Main:
 
         # making sure we start with a clean slate
         logging.info("Let's remove any old previous building folders")
-        fn.remove_dir(self, "/root/ArcoLinux-Out")
-        fn.remove_dir(self, "/root/ArcoLinuxB-Out")
-        fn.remove_dir(self, "/root/ArcoLinuxD-Out")
-        fn.remove_dir(self, "/root/arcolinux-build")
-        fn.remove_dir(self, "/root/arcolinuxd-build")
-        fn.remove_dir(self, "/root/arcolinuxb-build")
+        fn.remove_dir(self, "/root/arconet-out")
+        fn.remove_dir(self, "/root/arcopro-out")
+        fn.remove_dir(self, "/root/arcoplasma-out")
 
         # git clone the iso scripts
-        if "b" in self.choice:
-            logging.info("Changing the B name")
-            self.choice = self.choice.replace("linuxb", "")
-            logging.info("Renaming done to :" + self.choice)
-            # B isos
-
+        if "arconet" in self.choice:
+            # https://github.com/arconetpro/arconet-iso
             command = (
-                "git clone https://github.com/arcolinuxb/"
-                + self.choice
+                "git clone https://github.com/arconetpro/arconet-iso"
                 + " /tmp/"
                 + self.choice
             )
-        else:
-            # core isos
+        if "arcopro" in self.choice:
+            # https://github.com/arconetpro/arcopro-iso
             command = (
-                "git clone https://github.com/arcolinux/"
+                "git clone https://github.com/arconetpro/arcopro-iso"
+                + " /tmp/"
                 + self.choice
-                + "-iso /tmp/"
+            )
+        if "arcoplasma" in self.choice:
+            # https://github.com/arconetpro/arcoplasma-iso
+            command = (
+                "git clone https://github.com/arconetpro/arcoplasma-iso"
+                + " /tmp/"
                 + self.choice
             )
         logging.info("git cloning the build folder")
@@ -321,7 +319,7 @@ class Main:
             logging.error(error)
 
         # launch the scripts
-        # /tmp/arcolinuxd/installation-scripts/40-build-the-iso-local-again.sh
+        # /tmp/arcopro/installation-scripts/40-build-the-iso-local-again.sh
         logging.info("Start building the iso in Alacritty")
         logging.info(
             "#################################################################"
@@ -367,19 +365,12 @@ class Main:
             logging.error(error)
 
         # change the output - foldername
-        if (
-            self.choice == "arcolinuxl"
-            or self.choice == "arcolinuxs"
-            or self.choice == "arcolinuxs-lts"
-            or self.choice == "arcolinuxs-zen"
-            or self.choice == "arcolinuxs-xanmod"
-            or self.choice == "arcolinuxs-hardened"
-        ):
-            dir = "ArcoLinux-Out"
-        elif self.choice == "arcolinuxd":
-            dir = "ArcoLinuxD-Out"
+        if self.choice == "arconet":
+            dir = "arconet-out"
+        elif self.choice == "arcopro":
+            dir = "arcopro-out"
         else:
-            dir = "ArcoLinuxB-Out"
+            dir = "arcoplasma-Out"
 
         # Moving the iso to home directory of the user
         path_dir = "/root/" + dir
@@ -452,7 +443,7 @@ class Main:
         )
 
     def on_create_ariser_clicked(self, widget):
-        # Creation of the ArcoLinux iso
+        # Creation of the Ariser iso
         logging.info("Ariser iso selected")
 
         # installing archiso if needed
@@ -476,7 +467,6 @@ class Main:
             logging.error(error)
 
         # launch the scripts
-        # /tmp/arcolinuxd/installation-scripts/40-build-the-iso-local-again.sh
         logging.info("Start building the iso in Alacritty")
         logging.info(
             "#################################################################"
@@ -533,7 +523,7 @@ class Main:
         logging.info("Check your home directory for the iso")
 
     def on_create_sierra_clicked(self, widget):
-        # Creation of the ArcoLinux iso
+        # Creation of the Sierra iso
         logging.info("Sierra iso selected")
 
         # installing archiso if needed
@@ -557,7 +547,6 @@ class Main:
             logging.error(error)
 
         # launch the scripts
-        # /tmp/arcolinuxd/installation-scripts/40-build-the-iso-local-again.sh
         logging.info("Start building the iso in Alacritty")
         logging.info(
             "#################################################################"
