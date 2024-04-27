@@ -701,12 +701,12 @@ class Main:
         fn.install_package(self, package)
         fn.run_script(self, command)
         logging.info("We changed the content of your /etc/pacman.d/mirrorlist")
-        logging.info("Server = https://mirror.osbeck.com/archlinux/\$repo/os/\$arch")
-        logging.info("Server = http://mirror.osbeck.com/archlinux/\$repo/os/\$arch")
-        logging.info("Server = https://mirrors.kernel.org/archlinux/\$repo/os/\$arch")
-        logging.info("Server = https://geo.mirror.pkgbuild.com/\$repo/os/\$arch")
-        logging.info("Server = http://mirror.rackspace.com/archlinux/\$repo/os/\$arch")
-        logging.info("Server = https://mirror.rackspace.com/archlinux/\$repo/os/\$arch")
+        logging.info("Server = https://mirror.osbeck.com/archlinux/$repo/os/$arch")
+        logging.info("Server = http://mirror.osbeck.com/archlinux/$repo/os/$arch")
+        logging.info("Server = https://mirrors.kernel.org/archlinux/$repo/os/$arch")
+        logging.info("Server = https://geo.mirror.pkgbuild.com/$repo/os/$arch")
+        logging.info("Server = http://mirror.rackspace.com/archlinux/$repo/os/$arch")
+        logging.info("Server = https://mirror.rackspace.com/archlinux/$repo/os/$arch")
 
         logging.info("Done")
 
