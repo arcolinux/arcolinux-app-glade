@@ -27,8 +27,8 @@ echo "[INFO]: DESKTOP SESSION = $DESKTOP_SESSION"
 
 function start_in_wayland() {
   echo "[INFO]: Starting in Wayland session"
+  # generate XAuthority cookie
   xauth gen $DISPLAY &> /dev/null
-
   pkexec '/usr/share/arcolinux-app-glade/arcolinux_application_glade.py'
 }
 
@@ -65,7 +65,7 @@ case "$SESSION" in
       start_in_tty
     ;;
     *)
-      # anything here is an unknown session, most likely AKM will fail to load
+      # anything here is an unknown session, fallback to XDG_SESSION_TYPE
       echo "[INFO]: Display = $DISPLAY"
       echo "[WARN]: Session could not be verified, using XDG_SESSION_TYPE"
 
