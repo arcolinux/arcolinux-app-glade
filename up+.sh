@@ -64,7 +64,7 @@ echo "get the pacman.conf from ArchLinux"
 wget https://gitlab.archlinux.org/archlinux/archiso/-/raw/master/configs/releng/pacman.conf -O $workdir/usr/share/arcolinux-app-glade/data/arch/pacman.conf
 
 echo "get the pacman.conf from ArcoLinux"
-wget https://raw.githubusercontent.com/arcolinux/arcolinuxl-iso/master/archiso/airootfs/etc/pacman.conf -O $workdir/usr/share/arcolinux-app-glade/data/arco/pacman.conf
+wget https://raw.githubusercontent.com/arconetpro/arconet-iso/refs/heads/main/archiso/airootfs/etc/pacman.conf -O $workdir/usr/share/arcolinux-app-glade/data/arco/pacman.conf
 
 
 echo "get the pacman.conf from EOS"
