@@ -59,6 +59,7 @@ class Main:
         self.setup_logging()
         self.back_ups()
         self.cleanup()
+        self.cleanuptmp()
         self.versioning()
         self.setup_gui()
 
@@ -131,6 +132,52 @@ class Main:
                 except Exception as error:
                     logging.error(error)
 
+    def cleanuptmp(self):
+        # making sure /tmp is clean
+
+        # arcolinux
+        if fn.path.isdir("/tmp/arconet/"):
+            try:
+                fn.remove_dir(self, "/tmp/arconet")
+                logging.info("Removing old githubs in /tmp")
+                logging.info("This may take a while - be patient")
+            except Exception as error:
+                logging.error(error)
+
+        if fn.path.isdir("/tmp/arcopro/"):
+            try:
+                fn.remove_dir(self, "/tmp/arcopro")
+                logging.info("Removing old githubs in /tmp")
+                logging.info("This may take a while - be patient")
+            except Exception as error:
+                logging.error(error)
+
+        if fn.path.isdir("/tmp/arcoplasma/"):
+            try:
+                fn.remove_dir(self, "/tmp/arcoplasma")
+                logging.info("Removing old githubs in /tmp")
+                logging.info("This may take a while - be patient")
+            except Exception as error:
+                logging.error(error)
+
+        # ariser
+        if fn.path.isdir("/tmp/ariser/"):
+            try:
+                fn.remove_dir(self, "/tmp/ariser")
+                logging.info("Removing old githubs in /tmp")
+                logging.info("This may take a while - be patient")
+            except Exception as error:
+                logging.error(error)
+
+        # sierra
+        if fn.path.isdir("/tmp/sierra/"):
+            try:
+                fn.remove_dir(self, "/tmp/sierra")
+                logging.info("Removing old githubs in /tmp")
+                logging.info("This may take a while - be patient")
+            except Exception as error:
+                logging.error(error)
+
     def cleanup(self):
         # making sure /root is clean
         # arconet
@@ -183,7 +230,7 @@ class Main:
                 logging.info("This may take a while - be patient")
             except Exception as error:
                 logging.error(error)
-
+        # ariser
         if fn.path.isdir("/root/Ariser-build/"):
             try:
                 fn.remove_dir(self, "/root/Ariser-build/")
@@ -195,6 +242,23 @@ class Main:
         if fn.path.isdir("/root/Ariser-Out/"):
             try:
                 fn.remove_dir(self, "/root/Ariser-Out/")
+                logging.info("Removing old builds")
+                logging.info("This may take a while - be patient")
+            except Exception as error:
+                logging.error(error)
+
+        # sierra
+        if fn.path.isdir("/root/Sierra-build/"):
+            try:
+                fn.remove_dir(self, "/root/Sierra-build/")
+                logging.info("Removing old builds")
+                logging.info("This may take a while - be patient")
+            except Exception as error:
+                logging.error(error)
+
+        if fn.path.isdir("/root/Sierra-Out/"):
+            try:
+                fn.remove_dir(self, "/root/Sierra-Out/")
                 logging.info("Removing old builds")
                 logging.info("This may take a while - be patient")
             except Exception as error:
