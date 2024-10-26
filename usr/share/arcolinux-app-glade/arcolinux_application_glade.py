@@ -18,6 +18,7 @@
 # information.
 
 import os
+import re
 import logging
 from datetime import datetime
 from time import sleep
@@ -473,8 +474,31 @@ class Main:
             fn.remove_dir(self, "/root/work")
             logging.info("Cleanup - Removing : /root/work")
 
+        # Define the path to the file
+        file_path = "/usr/share/archiso/configs/releng/pacman.conf"
+
+        # Read the contents of the file
+        with open(file_path, "r") as file:
+            lines = file.readlines()
+
+        # Modify the lines by commenting out the line containing "DownloadUser = alpm"
+        new_lines = [
+            re.sub(r"^(DownloadUser\s*=\s*alpm)", r"#\1", line) for line in lines
+        ]
+
+        # Write the modified content back to the file
+        with open(file_path, "w") as file:
+            file.writelines(new_lines)
+
+        print(
+            "The line 'DownloadUser = alpm' has been commented out successfully in /etc/pacman.conf"
+        )
+        print("We change this so we can build the Arch Linux iso via AAG")
+
         # starting the Arch Linux build script
-        command = "mkarchiso -v -o " + fn.home + " /usr/share/archiso/configs/releng/"
+        command = (
+            "mkarchiso -v -r -o " + fn.home + " /usr/share/archiso/configs/releng/"
+        )
         try:
             fn.run_command(command)
         except Exception as error:
