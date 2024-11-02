@@ -476,6 +476,9 @@ class Main:
 
         # Define the path to the file
         file_path = "/usr/share/archiso/configs/releng/pacman.conf"
+        print("We make a backup of the original pacman.conf in releng")
+        backup_file_path = "/usr/share/archiso/configs/releng/pacman.conf.bak"
+        fn.shutil.copyfile(file_path, backup_file_path)
 
         # Read the contents of the file
         with open(file_path, "r") as file:
@@ -503,6 +506,9 @@ class Main:
             fn.run_command(command)
         except Exception as error:
             logging.error(error)
+
+        fn.shutil.move(backup_file_path, file_path)
+        print("The original pacman.conf has been restored.")
 
         # changing permission and add date
         x = datetime.now()
