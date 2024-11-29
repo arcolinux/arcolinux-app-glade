@@ -279,6 +279,11 @@ class Main:
         logging.info(
             "---------------------------------------------------------------------------"
         )
+        logging.info("[INFO] : User = " + fn.sudo_username)
+        fn.findgroup()
+        logging.info(
+            "---------------------------------------------------------------------------"
+        )
 
     def setup_gui(self):
         self.timeout_id = None
@@ -338,6 +343,10 @@ class Main:
 
         # installing archiso if needed
         package = "archiso"
+        fn.install_package(self, package)
+
+        # installing grub if needed
+        package = "grub"
         fn.install_package(self, package)
 
         # if arcolinux mirror and key not installed
