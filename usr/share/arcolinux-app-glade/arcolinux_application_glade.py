@@ -449,7 +449,7 @@ class Main:
         # Moving the iso to home directory of the user
         path_dir = "/root/" + dir
         destination = fn.home + "/" + dir
-        logging.info("Move folder to home directory")
+        logging.info("Move folder to home directory of the user")
         try:
             fn.shutil.copytree(path_dir, destination, dirs_exist_ok=True)
 
@@ -607,7 +607,7 @@ class Main:
         # Moving the iso to home directory of the user
         path_dir = "/root/" + dir
         destination = fn.home + "/" + dir
-        logging.info("Move folder to home directory")
+        logging.info("Move folder to home directory of the user")
         try:
             fn.shutil.copytree(path_dir, destination, dirs_exist_ok=True)
 
@@ -687,7 +687,7 @@ class Main:
         # Moving the iso to home directory of the user
         path_dir = "/root/" + dir
         destination = fn.home + "/" + dir
-        logging.info("Move folder to home directory")
+        logging.info("Move folder to home directory of the user")
         try:
             fn.shutil.copytree(path_dir, destination, dirs_exist_ok=True)
 
@@ -776,7 +776,7 @@ class Main:
         path_dir = "/root/DATA"
         destination = fn.home + "/DATA"
 
-        # Move folder to home directory
+        # Move folder to home directory of the user
         try:
             fn.shutil.copytree(path_dir, destination, dirs_exist_ok=True)
         except Exception as error:
