@@ -22,7 +22,7 @@ import re
 import logging
 from datetime import datetime
 from time import sleep
-
+import subprocess
 import functions as fn
 
 # Importing gi
@@ -174,6 +174,24 @@ class Main:
         if fn.path.isdir("/tmp/sierra/"):
             try:
                 fn.remove_dir(self, "/tmp/sierra")
+                logging.info("Removing old githubs in /tmp")
+                logging.info("This may take a while - be patient")
+            except Exception as error:
+                logging.error(error)
+
+        # archlive
+        if fn.path.isdir("/tmp/archlive/"):
+            try:
+                fn.remove_dir(self, "/tmp/archlive")
+                logging.info("Removing old githubs in /tmp")
+                logging.info("This may take a while - be patient")
+            except Exception as error:
+                logging.error(error)
+
+        # arcoinstall
+        if fn.path.isdir("/tmp/arcoinstall/"):
+            try:
+                fn.remove_dir(self, "/tmp/arcoinstall")
                 logging.info("Removing old githubs in /tmp")
                 logging.info("This may take a while - be patient")
             except Exception as error:
@@ -483,41 +501,52 @@ class Main:
             fn.remove_dir(self, "/root/work")
             logging.info("Cleanup - Removing : /root/work")
 
-        # Define the path to the file
-        file_path = "/usr/share/archiso/configs/releng/pacman.conf"
-        print("We make a backup of the original pacman.conf in releng")
-        backup_file_path = "/usr/share/archiso/configs/releng/pacman.conf.bak"
-        fn.shutil.copyfile(file_path, backup_file_path)
+        # # Define the path to the file
+        # file_path = "/usr/share/archiso/configs/releng/pacman.conf"
+        # print("We make a backup of the original pacman.conf in releng")
+        # backup_file_path = "/usr/share/archiso/configs/releng/pacman.conf.bak"
+        # fn.shutil.copyfile(file_path, backup_file_path)
 
-        # Read the contents of the file
-        with open(file_path, "r") as file:
-            lines = file.readlines()
+        # # Read the contents of the file
+        # with open(file_path, "r") as file:
+        #     lines = file.readlines()
 
-        # Modify the lines by commenting out the line containing "DownloadUser = alpm"
-        new_lines = [
-            re.sub(r"^(DownloadUser\s*=\s*alpm)", r"#\1", line) for line in lines
-        ]
+        # # Modify the lines by commenting out the line containing "DownloadUser = alpm"
+        # new_lines = [
+        #     re.sub(r"^(DownloadUser\s*=\s*alpm)", r"#\1", line) for line in lines
+        # ]
 
-        # Write the modified content back to the file
-        with open(file_path, "w") as file:
-            file.writelines(new_lines)
+        # # Write the modified content back to the file
+        # with open(file_path, "w") as file:
+        #     file.writelines(new_lines)
 
-        print(
-            "The line 'DownloadUser = alpm' has been commented out successfully in /etc/pacman.conf"
-        )
-        print("We change this so we can build the Arch Linux iso via AAG")
+        # print(
+        #     "The line 'DownloadUser = alpm' has been commented out successfully in /etc/pacman.conf"
+        # )
+        # print("We change this so we can build the Arch Linux iso via AAG")
 
         # starting the Arch Linux build script
-        command = (
-            "mkarchiso -v -r -o " + fn.home + " /usr/share/archiso/configs/releng/"
-        )
+        critty = ["alacritty", "-e"]
+        command = f"mkarchiso -v -r -o {fn.home} /usr/share/archiso/configs/releng/"
+        full_command = critty + ["bash", "-c", command]
         try:
-            fn.run_command(command)
+            subprocess.run(
+                full_command,
+                check=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+                text=True,
+            )
+            logging.info("Command executed successfully.")
+        except subprocess.CalledProcessError as error:
+            logging.error("Command failed with return code %s: %s", error.returncode, error.output)
+        except FileNotFoundError:
+            logging.error("Alacritty is not installed or not available in PATH.")
         except Exception as error:
-            logging.error(error)
+            logging.error("Unexpected error: %s", error)
 
-        fn.shutil.move(backup_file_path, file_path)
-        print("The original pacman.conf has been restored.")
+        # fn.shutil.move(backup_file_path, file_path)
+        # print("The original pacman.conf has been restored.")
 
         # changing permission and add date
         x = datetime.now()
@@ -527,7 +556,37 @@ class Main:
         iso_name = "/archlinux-" + year + "." + month + "." + day + "-x86_64.iso"
         destination = fn.home + iso_name
         fn.permissions(destination)
+
+        # Configuration
+        FOLDER_NAME = "archlinux-Out"
+
+        # Define source and destination paths
+        iso_source = destination  # Source ISO file path
+        destination_folder = os.path.join(fn.home, FOLDER_NAME)  # Destination folder path
+        destination_file = os.path.join(destination_folder, os.path.basename(iso_name))  # Full path in destination folder
+
+        logging.info("Moving ISO file into the user's home directory folder.")
+
+        try:
+            # Ensure the destination folder exists
+            os.makedirs(destination_folder, exist_ok=True)
+
+            # Copy the ISO file into the folder
+            fn.shutil.move(iso_source, destination_file)
+            logging.info(f"Successfully moved file from {iso_source} to {destination_file}")
+
+        except FileNotFoundError:
+            logging.error(f"Source file '{iso_source}' does not exist.")
+        except PermissionError:
+            logging.error("Permission denied. Ensure you have the necessary permissions.")
+        except fn.shutil.SameFileError:
+            logging.error("Source and destination represent the same file.")
+        except Exception as error:
+            logging.error(f"An unexpected error occurred: {error}")
+
         logging.info("Check your home directory for the iso")
+
+        fn.permissions(destination_folder)
 
         # making sure we start with a clean slate
         if fn.path_check(fn.base_dir + "/work"):
@@ -704,6 +763,111 @@ class Main:
         # changing permission
         fn.permissions(destination)
         logging.info("Check your home directory for the iso")
+
+    def on_create_arcoinstall_clicked(self, widget):
+        # Creation of the arcoinstall iso
+        logging.info("Arcoinstall iso selected")
+
+        # installing archiso if needed
+        package = "archiso"
+        fn.install_package(self, package)
+
+        # remove archlive
+        targetlive_dir = "/tmp/archlive"
+
+        if os.path.exists(targetlive_dir) and os.path.isdir(targetlive_dir):
+            try:
+                fn.shutil.rmtree(targetlive_dir)
+                logging.info(f"Removed existing directory: {targetlive_dir}")
+            except Exception as error:
+                logging.error(f"Failed to remove directory {targetlive_dir}: {error}")
+                return
+            
+        # git clone the iso scripts and remove first
+        repo_url = "https://github.com/arconetpro/arcoinstall.git"
+        target_dir = "/tmp/arcoinstall"
+
+        if os.path.exists(target_dir) and os.path.isdir(target_dir):
+            try:
+                fn.shutil.rmtree(target_dir)
+                logging.info(f"Removed existing directory: {target_dir}")
+            except Exception as error:
+                logging.error(f"Failed to remove directory {target_dir}: {error}")
+                return
+
+        command = f"git clone {repo_url} {target_dir}"
+        logging.info("git cloning the build folder")
+        logging.info(command)
+        try:
+            fn.run_command(command)
+        except Exception as error:
+            logging.error(error)
+
+        # launch the scripts
+        logging.info("Start building the iso in Alacritty")
+        logging.info(
+            "#################################################################"
+        )
+        logging.info("Sometimes you have to try and build it a second time")
+        logging.info("for it to work because of keys, servers and network connections")
+        logging.info(
+            "##################################################################"
+        )
+
+        target_dir = "/tmp/arcoinstall"
+        command = "./build_iso.sh"  # Relative path since cwd will be set
+        critty = ["alacritty", "-e"]
+
+        if not (os.path.exists(target_dir) and os.path.isdir(target_dir)):
+            logging.error("Directory does not exist: %s", target_dir)
+            return
+
+        full_command = critty + [command]
+        logging.info("Launching command with Alacritty in directory: %s", target_dir)
+        logging.info("Full command: %s", ' '.join(full_command))
+
+        try:
+            subprocess.run(
+                full_command,
+                check=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+                text=True,
+                cwd=target_dir  # Set working directory specifically for this command
+            )
+            logging.info("Command executed successfully.")
+        except subprocess.CalledProcessError as error:
+            logging.error("Command failed with return code %s: %s", error.returncode, error.output)
+        except FileNotFoundError:
+            logging.error("Alacritty is not installed or not available in PATH.")
+        except Exception as error:
+            logging.error("Unexpected error: %s", error)
+
+        # change the output - foldername
+        dir = "arcoinstall-Out"
+
+        # Moving the iso to home directory of the user
+        path_dir = "/tmp/archlive/out/"
+        destination = fn.home + "/" + dir
+        logging.info("Move folder to home directory of the user")
+        try:
+            os.makedirs(os.path.dirname(destination), exist_ok=True)
+            fn.shutil.copytree(path_dir, destination, dirs_exist_ok=True)
+
+            # Sending an in-app message
+            GLib.idle_add(
+                fn.show_in_app_notification,
+                self,
+                "The creation of the Arcoinstall iso is finished",
+                False,
+            )
+        except Exception as error:
+            logging.error(error)
+
+        # changing permission
+        fn.permissions(destination)
+        logging.info("Check your home directory for the iso")
+
 
     def on_clean_pacman_cache_clicked(self, widget):
         # Cleaning the /var/cache/pacman/pkg/

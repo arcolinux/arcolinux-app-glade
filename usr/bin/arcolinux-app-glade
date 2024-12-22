@@ -30,18 +30,34 @@ function start_in_wayland() {
   xauth gen $DISPLAY &> /dev/null
 
   case "$DESKTOP_SESSION" in
-    plasma | gnome)
+    plasma )
         pkexec env DISPLAY=$DISPLAY WAYLAND_DISPLAY="$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY" XAUTHORITY=$XAUTHORITY DBUS_SESSION_BUS_ADDRESS=$DBUS_SESSION_BUS_ADDRESS GDK_BACKEND=x11 GTK_A11Y=none '/usr/share/arcolinux-app-glade/arcolinux_application_glade.py'
     ;;
     *)
-      pkexec env DISPLAY=$DISPLAY WAYLAND_DISPLAY="$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY" XAUTHORITY=$XAUTHORITY DBUS_SESSION_BUS_ADDRESS=$DBUS_SESSION_BUS_ADDRESS GTK_A11Y=none '/usr/share/arcolinux-app-glade/arcolinux_application_glade.py'
+      pkexec env DISPLAY=$DISPLAY WAYLAND_DISPLAY="$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY" XAUTHORITY=$XAUTHORITY GTK_A11Y=none '/usr/share/arcolinux-app-glade/arcolinux_application_glade.py'
     ;;
   esac
 }
 
 function start_in_x11() {
   echo "[INFO]: Starting in X11 session"
-  pkexec env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY DBUS_SESSION_BUS_ADDRESS=$DBUS_SESSION_BUS_ADDRESS GTK_A11Y=none '/usr/share/arcolinux-app-glade/arcolinux_application_glade.py'
+  
+  if [ -z "$DISPLAY" ] || [ -z "$XAUTHORITY" ]; then
+    echo "[ERROR]: DISPLAY or XAUTHORITY is not set. Cannot start X11 application."
+    return 1
+  fi
+  
+  pkexec env DISPLAY="$DISPLAY" \
+              XAUTHORITY="$XAUTHORITY" \
+              GTK_A11Y=none \
+              /usr/share/arcolinux-app-glade/arcolinux_application_glade.py
+              
+  if [ $? -ne 0 ]; then
+    echo "[ERROR]: Failed to start the application with pkexec."
+    return 1
+  fi
+  
+  echo "[INFO]: Application started successfully."
 }
 
 function start_in_tty() {

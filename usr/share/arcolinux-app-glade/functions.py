@@ -409,13 +409,38 @@ def run_script_alacritty(self, command):
         self.logging.error(error)
 
 
-# Remove directory
-def remove_dir(self, directory):
-    if path_check(directory):
-        try:
-            shutil.rmtree(directory)
-        except Exception as error:
-            logging.error(error)
+def remove_dir(self, directory: str) -> bool:
+    """
+    Safely remove a directory if it exists.
+
+    Parameters:
+        directory (str): Path to the directory to be removed.
+
+    Returns:
+        bool: True if the directory was removed successfully, False otherwise.
+    """
+    if not os.path.exists(directory):
+        logging.warning(f"Directory does not exist: {directory}")
+        return False
+
+    if not os.path.isdir(directory):
+        logging.error(f"Path is not a directory: {directory}")
+        return False
+
+    try:
+        shutil.rmtree(directory)
+        logging.info(f"Successfully removed directory: {directory}")
+        return True
+    except PermissionError:
+        logging.error(f"Permission denied while removing directory: {directory}")
+    except FileNotFoundError:
+        logging.error(f"Directory not found during removal: {directory}")
+    except OSError as error:
+        logging.error(f"Failed to remove directory {directory}: {error}")
+    except Exception as error:
+        logging.error(f"Unexpected error occurred while removing directory {directory}: {error}")
+
+    return False
 
 
 # Change permissions
