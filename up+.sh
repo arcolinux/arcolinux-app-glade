@@ -66,13 +66,14 @@ wget https://gitlab.archlinux.org/archlinux/archiso/-/raw/master/configs/releng/
 echo "get the pacman.conf from ArcoLinux"
 wget https://raw.githubusercontent.com/arconetpro/arconet-iso/refs/heads/main/archiso/airootfs/etc/pacman.conf -O $workdir/usr/share/arcolinux-app-glade/data/arco/pacman.conf
 
-
 echo "get the pacman.conf from EOS"
 wget https://raw.githubusercontent.com/endeavouros-team/EndeavourOS-ISO/main/airootfs/etc/pacman.conf -O $workdir/usr/share/arcolinux-app-glade/data/eos/pacman.conf
 
 echo "get the pacman.conf from EOS"
 wget https://gitlab.com/garuda-linux/tools/garuda-tools/-/raw/master/data/pacman-multilib.conf -O $workdir/usr/share/arcolinux-app-glade/data/garuda/pacman.conf
 
+echo "get script"
+wget https://raw.githubusercontent.com/arcolinux/arcolinux-system-config/refs/heads/master/usr/local/bin/arcolinux-probe -O $workdir/usr/share/arcolinux-app-glade/scripts/arcolinux-probe
 
 # Below command will backup everything inside the project folder
 git add --all .

@@ -913,9 +913,9 @@ class Main:
     def on_probe_clicked(self, widget):
         # Gathering information with hw-probe
         logging.info("Let's create the probe link")
-        command = fn.base_dir + "/scripts/probe"
-        package = "hw-probe"
-        fn.install_package(self, package)
+        command = fn.base_dir + "/scripts/arcolinux-probe"
+        # package = "hw-probe"
+        # fn.install_package(self, package)
         fn.run_script_alacritty_hold(self, command)
 
         # Sending an in-app message
