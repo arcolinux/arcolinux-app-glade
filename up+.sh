@@ -74,6 +74,7 @@ wget https://gitlab.com/garuda-linux/tools/garuda-tools/-/raw/master/data/pacman
 
 echo "get script"
 wget https://raw.githubusercontent.com/arcolinux/arcolinux-system-config/refs/heads/master/usr/local/bin/arcolinux-probe -O $workdir/usr/share/arcolinux-app-glade/scripts/arcolinux-probe
+chmod +x $workdir/usr/share/arcolinux-app-glade/scripts/arcolinux-probe
 
 # Below command will backup everything inside the project folder
 git add --all .
